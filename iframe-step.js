@@ -102,56 +102,33 @@ YUI.add("iframe-step", function (Y) {
             }
         },
 
-        newPage: function (offset) {
-            var that = this,
-                url,
-                node,
-                itemNode;
-
-            node = that.get("contentBox");
-            url = that.get("frames")[offset].url;
-            _log(url);
-            itemNode = node.all("li").item(offset);
-            itemNode.append('<iframe src="' + url + '"></iframe>');
-            itemNode.addClass(that.getClassName("selected"));
-            _log("tset:" + that.getAttrs("activeItem"));
-            _log("tset-2:" + that.get("activeItem"));
-            that.get("activeItem").removeClass(that.getClassName("selected")).addClass(that.getClassName("enable"));
-            that._set("activeItem", itemNode);
-            that.get("frames")[offset].rendered = true;
-            _log("new : " + that.get("frames")[offset].rendered);
-            _log("l:" + that.get("frames").length);
-        },
-
-        showPage: function (offset) {
-            var that = this,
-                node,
-                itemNode;
-            node = that.get("contentBox");
-            itemNode = node.all("li").item(offset);
-            that.get("activeItem").removeClass(that.getClassName("selected")).addClass(that.getClassName("enable"));
-            itemNode.removeClass(that.getClassName("enable")).addClass(that.getClassName("selected"));
-            that._set("activeItem", itemNode);
-        },
-
         _move: function (isForward) {
             var that = this,
                 rendered,
                 nextNode,
                 node,
                 offset,
+                url,
+                itemNode,
                 prevNode;
             node = that.get("contentBox");
             offset = that.get("offset");
             offset = (isForward) ? offset + 1 : offset - 1;
             _log("click - " + offset);
             rendered = that.get("frames")[offset].rendered;
+            itemNode = node.all("li").item(offset);
+            that.get("activeItem").removeClass(that.getClassName("selected")).addClass(that.getClassName("enable"));
             _log(rendered);
             if (rendered) {
-                that.showPage(offset);
+                itemNode.removeClass(that.getClassName("enable")).addClass(that.getClassName("selected"));
             } else {
-                that.newPage(offset);
+                url = that.get("frames")[offset].url;
+                _log(url);
+                itemNode.append('<iframe src="' + url + '"></iframe>');
+                itemNode.addClass(that.getClassName("selected"));
+                that.get("frames")[offset].rendered = true;
             }
+            that._set("activeItem", itemNode);
             //step button
             this.button(offset);
             that._set("offset", offset);
@@ -163,7 +140,9 @@ YUI.add("iframe-step", function (Y) {
                 rendered,
                 nextNode,
                 node,
-                prevNode;
+                itemNode,
+                prevNode,
+                url;
             node = that.get("contentBox");
             offset = Y.one("input[name=page]").get("value") - 1;
             if (offset >= that.get("frames").length || 0 > offset) {
@@ -171,12 +150,19 @@ YUI.add("iframe-step", function (Y) {
                 return true;
             }
             rendered = that.get("frames")[offset].rendered;
+            itemNode = node.all("li").item(offset);
+            that.get("activeItem").removeClass(that.getClassName("selected")).addClass(that.getClassName("enable"));
             _log(rendered);
             if (rendered) {
-                that.showPage(offset);
+                itemNode.removeClass(that.getClassName("enable")).addClass(that.getClassName("selected"));
             } else {
-                that.newPage(offset);
+                url = that.get("frames")[offset].url;
+                _log(url);
+                itemNode.append('<iframe src="' + url + '"></iframe>');
+                itemNode.addClass(that.getClassName("selected"));
+                that.get("frames")[offset].rendered = true;
             }
+            that._set("activeItem", itemNode);
             //step button
             this.button(offset);
             that._set("offset", offset);
