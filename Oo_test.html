@@ -20,8 +20,8 @@ YUI().use("iframe-step", function (Y) {
 
     Y.one("form").on("submit", function (e) {
         e.preventDefault();
-        obj.move();
-        //obj.move(Y.one("input[name=page]").get("value"));
+        //obj.move();
+        obj.move(Y.one("input[name=page]").get("value"));
     });
     obj.on("change", function (e) {
         Y.log("change event triggered!");
@@ -92,7 +92,7 @@ YUI().use("iframe-step", function (Y) {
 
 
     <form>
-        <input type="text" name="page" value="1">
+        <input type="text" name="page" value="0">
     </form>
 
 </body>
