@@ -18,6 +18,10 @@ YUI.add("iframe-step", function (Y) {
     IframeStep.NAME = "iframestep";
 
     IframeStep.ATTRS = {
+        activeItem : {
+            value: null,
+            readOnly: true
+        },
         frames : {
             value: {},
             validator: Y.Lang.isObject
@@ -25,10 +29,6 @@ YUI.add("iframe-step", function (Y) {
         offset : {
             value: 0,
             validator: Y.Lang.isNumber
-        },
-        activeItem : {
-            value: null,
-            readOnly: true
         }
     };
 
@@ -38,9 +38,9 @@ YUI.add("iframe-step", function (Y) {
             var frames = [];
             srcNode.all("li").each(function (el) {
                 frames.push({
-                    url         : el.one("a").get("href"),
                     title       : el.one("a").getHTML(),
-                    rendered : false
+                    url         : el.one("a").get("href"),
+                    rendered    : false
                 });
             });
             return frames;
@@ -51,33 +51,32 @@ YUI.add("iframe-step", function (Y) {
 
     Y.extend(IframeStep, Y.Widget, {
 
-        /*button: function (offset) {
-            if (offset === 0) {
-                node.addClass("first");
-            } else if (that.get("frames").length - 1 === offset) {
-                node.replaceClass("first", "last").removeClass("interval");
-            } else {
-                node.removeClass("first").removeClass("last").addClass("interval");
-            }
-        },*/
-
-        _move: function (isForward) {
+        move: function (offset) {
             var that = this,
-                rendered,
-                node,
-                offset,
                 frames,
-                url,
-                itemNode;
-            node = that.get("contentBox");
-            offset = that.get("offset");
-            offset = (isForward) ? offset + 1 : offset - 1;
-            frames = that.get("frames")[offset];
+                node,
+                itemNode,
+                rendered,
+                url;
+
+            offset = (Lang.isString(offset)) ? parseInt(offset, 10) : offset;
+            if (Lang.isBoolean(offset)) {
+                offset = (offset) ? that.get("offset") + 1 : that.get("offset") - 1;
+                _log("offset is boolean. boolean = " + offset);
+            } else if (Lang.isNumber(offset)) {
+                _log("offset is number. offset = " + offset);
+            }
+            if (offset >= that.get("frames").length || 0 > offset) {
+                alert("Steps is not exist!");
+                return true;
+            }
             _log("offset:" + offset);
-            rendered = frames.rendered;
+            frames = that.get("frames")[offset];
+            node = that.get("contentBox");
             itemNode = node.all("li").item(offset);
+            rendered = frames.rendered;
             that.get("activeItem").replaceClass(that.getClassName("selected"), that.getClassName("disable"));
-            _log(rendered);
+            _log("rendered : " + rendered);
             if (rendered) {
                 itemNode.replaceClass(that.getClassName("disable"), that.getClassName("selected"));
             } else {
@@ -96,89 +95,26 @@ YUI.add("iframe-step", function (Y) {
             } else {
                 node.removeClass("first").removeClass("last").addClass("interval");
             }
-            //this.button(offset);
             that._set("offset", offset);
-        },
-
-        step: function (offset) {
-            var that = this,
-                rendered,
-                nextNode,
-                node,
-                itemNode,
-                prevNode,
-                url;
-            node = that.get("contentBox");
-            offset = Y.one("input[name=page]").get("value") - 1;
-            if (offset >= that.get("frames").length || 0 > offset) {
-                alert("no step");
-                return true;
-            }
-            rendered = that.get("frames")[offset].rendered;
-            itemNode = node.all("li").item(offset);
-            that.get("activeItem").removeClass(that.getClassName("selected")).addClass(that.getClassName("disable"));
-            _log(rendered);
-            if (rendered) {
-                itemNode.removeClass(that.getClassName("disable")).addClass(that.getClassName("selected"));
-            } else {
-                url = that.get("frames")[offset].url;
-                _log(url);
-                itemNode.append('<iframe src="' + url + '"></iframe>');
-                itemNode.addClass(that.getClassName("selected"));
-                that.get("frames")[offset].rendered = true;
-            }
-            that._set("activeItem", itemNode);
-            //step button
-            this.button(offset);
-            that._set("offset", offset);
-            _log("fin - " + that.get("offset"));
-        },
-
-        move: function () {
-            _log("move");
-            this.step();
-            this.fire("change");
+            this.fire("change", {offset: offset});
         },
 
         next: function () {
             _log("next");
-            this._move(true);
-            this.fire("change");
+            this.move(true);
         },
 
         prev: function () {
             _log("prev");
-            this._move(false);
-            this.fire("change");
+            this.move(false);
         },
 
         initializer: function () {
-            /*
-             * initializer is part of the lifecycle introduced by
-             * the Base class. It is invoked during construction,
-             * and can be used to setup instance specific state or publish events which
-             * require special configuration (if they don't need custom configuration,
-             * events are published lazily only if there are subscribers).
-             *
-             * It does not need to invoke the superclass initializer.
-             * init() will call initializer() for all classes in the hierarchy.
-             */
             _log("initializer");
-
         },
 
         destructor : function () {
-            /*
-             * destructor is part of the lifecycle introduced by
-             * the Widget class. It is invoked during destruction,
-             * and can be used to cleanup instance specific state.
-             *
-             * Anything under the boundingBox will be cleaned up by the Widget base class
-             * We only need to clean up nodes/events attached outside of the bounding Box
-             *
-             * It does not need to invoke the superclass destructor.
-             * destroy() will call initializer() for all classes in the hierarchy.
-             */
+
         },
 
         renderUI : function () {
@@ -193,6 +129,10 @@ YUI.add("iframe-step", function (Y) {
                 steps;
             node = that.get("contentBox");
             offset = that.get("offset");
+            if (offset >= that.get("frames").length || 0 > offset) {
+                _log("Steps is not exist!Please reset offset.");
+                return true;
+            }
             frames = that.get("frames")[offset];
             url = frames.url;
             _log(url);
@@ -201,20 +141,13 @@ YUI.add("iframe-step", function (Y) {
             itemNode.addClass(that.getClassName("selected"));
             _log("activeItem:" + that.get("activeItem"));
             that._set("activeItem", itemNode);
-            frames.rendered = true;
             _log("rendered : " + that.get("frames")[offset].rendered);
-            //node.append('<button class="prev-step yui3-iframestep-disable">prev</button>');
-            //node.append('<button class="next-step">next</button>');
+            frames.rendered = true;
             node.append('<button>Prev</button><button>Next</button><button>End</button>');
-            //node.all("button").item(0).addClass(that.getClassName("prev-step"));
-            //node.all("button").item(1).addClass(that.getClassName("next-step"));
-            //node.all("button").item(2).addClass(that.getClassName("end-step"));
             for (i = 0; 2 >= i; i++) {
                 steps = ["prev-step", "next-step", "end-step"];
                 node.all("button").item(i).addClass(that.getClassName(steps[i]));
             }
-            //node.append('<button class="prev-step">prev</button><button class="next-step">next</button><button class="end-step">End</button>');
-
         },
 
         bindUI : function () {
@@ -250,42 +183,32 @@ YUI.add("iframe-step", function (Y) {
             }
         },
 
-        // Beyond this point is the IframeStep specific application and rendering logic
-
-        /* Attribute state supporting methods (see attribute config above) */
-
         _defAttrAVal : function () {
-            // this.get("id") + "foo";
+
         },
 
         _setAttrA : function (attrVal, attrName) {
-            // return attrVal.toUpperCase();
+
         },
 
         _getAttrA : function (attrVal, attrName) {
-            // return attrVal.toUpperCase();
+
         },
 
         _validateAttrA : function (attrVal, attrName) {
-            // return Lang.isString(attrVal);
+
         },
 
-        /* Listeners, UI update methods */
-
         _afterAttrAChange : function (e) {
-            /* Listens for changes in state, and asks for a UI update (controller). */
 
-            // this._uiSetAttrA(e.newVal);
         },
 
         _uiSetAttrA : function (val) {
-            /* Update the state of attrA in the UI (view) */
 
-            // this._mynode.set("innerHTML", val);
         },
 
         _defMyEventFn : function (e) {
-            // The default behavior for the "myEvent" event.
+
         }
     });
 
