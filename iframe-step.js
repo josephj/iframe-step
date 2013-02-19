@@ -71,13 +71,9 @@ YUI.add("iframe-step", function (Y) {
                 itemNode;
             node = that.get("contentBox");
             offset = that.get("offset");
+            offset = (isForward) ? offset + 1 : offset - 1;
             frames = that.get("frames")[offset];
-            if (Lang.isBoolean(isForward)) {
-                offset = (isForward) ? offset + 1 : offset - 1;
-                _log("offset is boolean. boolean = " + isForward);
-            } else if (Lang.isNumber(isForward)) {
-                _log("offset is number. offset = " + offset);
-            }
+            _log("offset:" + offset);
             rendered = frames.rendered;
             itemNode = node.all("li").item(offset);
             that.get("activeItem").replaceClass(that.getClassName("selected"), that.getClassName("disable"));
@@ -102,7 +98,6 @@ YUI.add("iframe-step", function (Y) {
             }
             //this.button(offset);
             that._set("offset", offset);
-            _log("fin - " + that.get("offset"));
         },
 
         step: function (offset) {
@@ -199,16 +194,15 @@ YUI.add("iframe-step", function (Y) {
             node = that.get("contentBox");
             offset = that.get("offset");
             frames = that.get("frames")[offset];
-            _log(that.get("frames")[offset]);
             url = frames.url;
             _log(url);
             itemNode = node.all("li").item(offset);
             itemNode.append('<iframe src="' + url + '"></iframe>');
             itemNode.addClass(that.getClassName("selected"));
-            _log("tset:" + that.get("activeItem"));
+            _log("activeItem:" + that.get("activeItem"));
             that._set("activeItem", itemNode);
             frames.rendered = true;
-            _log("new : " + that.get("frames")[offset].rendered);
+            _log("rendered : " + that.get("frames")[offset].rendered);
             //node.append('<button class="prev-step yui3-iframestep-disable">prev</button>');
             //node.append('<button class="next-step">next</button>');
             node.append('<button>Prev</button><button>Next</button><button>End</button>');
