@@ -17,10 +17,6 @@ YUI().use("iframe-step", function (Y) {
         srcNode: "#foo"
     });
     obj.render();
-    //Y.log(obj);
-    //Y.log(obj.render());
-    //Y.log(obj._attrs);
-    //Y.log(obj._state);
 
     Y.one(".next-step").on("click", function (e) {
         obj.next();
@@ -32,7 +28,7 @@ YUI().use("iframe-step", function (Y) {
         //obj.move(Y.one("input[name=page]").get("value"));
     });
     obj.on("change", function (e) {
-        alert("change event triggered!");
+        Y.log("change event triggered!");
         Y.log(e);
     });
     obj.on("render", function (e){
