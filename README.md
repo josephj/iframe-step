@@ -19,13 +19,13 @@ A iframe step control provides a widget for browsing among frames horizontally i
 <div id="foo">
     <ul>
         <li>
-            <a href="iframe.php?offset=0">第 1 頁</a>
+            <a href="iframe.php?offset=0">Page 1</a>
         </li>
         <li>
-            <a href="iframe.php?offset=1">第 2 頁</a>
+            <a href="iframe.php?offset=1">Page 2</a>
         </li>
         <li>
-            <a href="iframe.php?offset=2">第 3 頁</a>
+            <a href="iframe.php?offset=2">Page 3</a>
         </li>
     </ul>
 </div>
