@@ -1,0 +1,29 @@
+/**
+ * Core CSS file.
+ */
+/* line 6, sass/iframe-step.scss */
+.yui3-iframestep .yui3-iframestep-loading iframe {
+    visibility: hidden;
+}
+/* line 10, sass/iframe-step.scss */
+.yui3-iframestep .yui3-iframestep-item {
+    left: -1000em;
+    position: absolute;
+    top: -1000em;
+}
+/* line 15, sass/iframe-step.scss */
+.yui3-iframestep li.yui3-iframestep-item-selected {
+    position: static;
+}
+/* line 18, sass/iframe-step.scss */
+.yui3-iframestep .yui3-iframestep-item a {
+    display: none;
+}
+/* line 23, sass/iframe-step.scss */
+.yui3-iframestep .yui3-iframestep-end-button, .yui3-iframestep.yui3-iframestep-first .yui3-iframestep-prev-button, .yui3-iframestep.yui3-iframestep-last .yui3-iframestep-next-button {
+    display: none;
+}
+/* line 26, sass/iframe-step.scss */
+.yui3-iframestep.yui3-iframestep-last .yui3-iframestep-end-button {
+    display: inline-block;
+}
