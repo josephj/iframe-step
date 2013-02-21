@@ -1,5 +1,11 @@
 /*global YUI, alert, document*/
 YUI.add("iframe-step", function (Y) {
+    /**
+     * A iframe step control provides a widget for browsing among frames horizontally in an overloaded page region.
+     *
+     * @module iframe-step
+     * @requires widget
+     */
 
     "use strict";
 
@@ -40,7 +46,12 @@ YUI.add("iframe-step", function (Y) {
     };
 
     /**
+     * The IframeStep provides a widget for browsing among iframes.
+     *
      * @class IframeStep
+     * @extends Widget
+     * @param config {Object} Configuration options for the widget
+     * @constructor
      */
     function IframeStep(config) {
         IframeStep.superclass.constructor.apply(this, arguments);
@@ -68,7 +79,6 @@ YUI.add("iframe-step", function (Y) {
         offset : {
             value: 0,
             validator: function (value) {
-                _log("offset validator is executed.");
                 var that = this;
                 return that._validateOffset(value);
             }
@@ -107,6 +117,13 @@ YUI.add("iframe-step", function (Y) {
         //=================
         // Event Handlers
         //=================
+        /**
+         * Updates UI according to provided offset.
+         *
+         * @method _uiSetOffset
+         * @private
+         * @param offset {Number} The frame offset.
+         */
         _uiSetOffset: function (offset) {
             _log("_uiSetOffset() is executed.");
             var that = this,
@@ -173,7 +190,7 @@ YUI.add("iframe-step", function (Y) {
                 return false;
             }
             if (offset >= that.get("frames").length || offset < 0) {
-                _log("The offset attribute value (" + offset + ") is not valid.");
+                _log("The offset attribute value (" + offset + ") is not valid.", "warn");
                 return false;
             }
             return true;
@@ -246,7 +263,7 @@ YUI.add("iframe-step", function (Y) {
          * @public
          * @param offset {Boolean|Number} true if it switches to next iframe.
          *     false if it switches to previous iframe.
-         *     You can also provide a number of offset to show a specific step.
+         *     You can also provide a number of offset to show a specific frame.
          */
         move: function (offset) {
             _log("move(" + offset + ") is executed.");
@@ -260,7 +277,6 @@ YUI.add("iframe-step", function (Y) {
 
              // This triggers the _afterOffsetChange event.
             that._set("offset", offset);
-            return true;
         },
         /**
          * Moves to next item.
