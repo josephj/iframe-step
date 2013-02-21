@@ -3,6 +3,8 @@ Iframe Step
 
 A iframe step control provides a widget for browsing among frames horizontally in an overloaded page region.
 
+[API Documentation](http://josephj.github.com/iframe-step/)
+
 ## Dependencies
 
 ```html
