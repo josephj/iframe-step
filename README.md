@@ -5,9 +5,11 @@ A iframe step control provides a widget for browsing among frames horizontally i
 
 ## Dependencies
 
+```html
 <link rel="stylesheet" href="assets/iframe-step.css">
 <script src="http://yui.yahooapis.com/3.8.1/build/yui/yui-min.js"></script>
 <script src="iframe-step.js"></script>
+```
 
 ## HTML Markup
 
@@ -28,6 +30,7 @@ A iframe step control provides a widget for browsing among frames horizontally i
 ```
 
 ## JavaScript
+
 
 ```javacript
 YUI().use("iframe-step", function (Y) {
