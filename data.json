@@ -1,0 +1,218 @@
+{
+    "project": {},
+    "files": {
+        "iframe-step.js": {
+            "name": "iframe-step.js",
+            "modules": {
+                "iframe-step": 1
+            },
+            "classes": {
+                "IframeStep": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "iframe-step": {
+            "name": "iframe-step",
+            "submodules": {},
+            "classes": {
+                "IframeStep": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "iframe-step.js",
+            "line": 48,
+            "description": "A iframe step control provides a widget for browsing among frames horizontally in an overloaded page region.",
+            "requires": [
+                "widget"
+            ]
+        }
+    },
+    "classes": {
+        "IframeStep": {
+            "name": "IframeStep",
+            "shortname": "IframeStep",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "iframe-step",
+            "namespace": "",
+            "file": "iframe-step.js",
+            "line": 48,
+            "description": "The IframeStep provides a widget for browsing among iframes.",
+            "extends": "Widget",
+            "params": [
+                {
+                    "name": "config",
+                    "description": "Configuration options for the widget",
+                    "type": "Object"
+                }
+            ],
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "iframe-step.js",
+            "line": 62,
+            "description": "Frames data collection.",
+            "itemtype": "attribute",
+            "name": "frames",
+            "type": "{Object}",
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 72,
+            "description": "Current offset.",
+            "itemtype": "attribute",
+            "name": "offset",
+            "type": "{Number}",
+            "default": "0",
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 86,
+            "description": "The amount of iframes.",
+            "itemtype": "attribute",
+            "name": "offset",
+            "type": "{Number}",
+            "readonly": "",
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 120,
+            "description": "Updates UI according to provided offset.",
+            "itemtype": "method",
+            "name": "_uiSetOffset",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "offset",
+                    "description": "The frame offset.",
+                    "type": "Number"
+                }
+            ],
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 163,
+            "description": "Handles offsetChange event.\nIt deals with CSS classes on boundingBox.",
+            "itemtype": "method",
+            "name": "_afterOffsetChange",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "Event instance.",
+                    "type": "Y.Event"
+                }
+            ],
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 179,
+            "description": "Validates if the provided offset is valid.",
+            "itemtype": "method",
+            "name": "_validateOffset",
+            "access": "private",
+            "tagname": "",
+            "return": {
+                "description": "false if it's illegal.",
+                "type": "Boolean"
+            },
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 201,
+            "description": "Creates the DOM structure for the IframeStep.",
+            "itemtype": "method",
+            "name": "renderUI",
+            "access": "protected",
+            "tagname": "",
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 223,
+            "description": "Binds button interaction.",
+            "itemtype": "method",
+            "name": "bindUI",
+            "access": "protected",
+            "tagname": "",
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 244,
+            "description": "Synchronizes the DOM state with the attribute settings.",
+            "itemtype": "method",
+            "name": "syncUI",
+            "access": "protected",
+            "tagname": "",
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 259,
+            "description": "Switches to specific item.",
+            "itemtype": "method",
+            "name": "move",
+            "access": "public",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "offset",
+                    "description": "true if it switches to next iframe.\n    false if it switches to previous iframe.\n    You can also provide a number of offset to show a specific frame.",
+                    "type": "Boolean|Number"
+                }
+            ],
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 281,
+            "description": "Moves to next item.",
+            "itemtype": "method",
+            "name": "next",
+            "access": "public",
+            "tagname": "",
+            "class": "IframeStep",
+            "module": "iframe-step"
+        },
+        {
+            "file": "iframe-step.js",
+            "line": 292,
+            "description": "Moves to previous item.",
+            "itemtype": "method",
+            "name": "prev",
+            "access": "public",
+            "tagname": "",
+            "class": "IframeStep",
+            "module": "iframe-step"
+        }
+    ],
+    "warnings": []
+}
