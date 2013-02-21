@@ -32,7 +32,7 @@ A iframe step control provides a widget for browsing among frames horizontally i
 ## JavaScript
 
 
-```javacript
+```js
 YUI().use("iframe-step", function (Y) {
 
     new Y.IframeStep({
